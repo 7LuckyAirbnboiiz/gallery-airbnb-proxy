@@ -1,12 +1,15 @@
 let express = require('express');
 let axios = require('axios');
-let parser = require('body-parser');
+let bodyParser = require('body-parser');
 
 let app = express();
 let PORT = 1010;
 
-app.use('/', express.static('public'));
-app.use(parser.urlencoded({ extended: false }));
+app.use('/rooms/:id', express.static('public'));
+// app.use(parser.urlencoded({ extended: false }));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/properties/:id', (req, res) => {
   let id = req.params.id;
@@ -17,7 +20,6 @@ app.get('/properties/:id', (req, res) => {
     })
     .catch(console.log)
 });
-
 
 app.get('/reviews/users', (req, res) => {
   axios.get(`http://localhost:3003/reviews/users`)
@@ -50,6 +52,31 @@ app.get('/reviews', (req, res) => {
     })
     .catch(console.log)
 });
+
+//calendar
+app.get('/rooms/:room_id/reservation', (req, res) => {
+  let id = req.params.room_id
+  axios.get(`http://localhost:3002/rooms/${id}/reservation`)
+    .then((data) => {
+      console.log('hello')
+      res.send(data.data);
+    })
+    .catch(() => {
+      console.log('error here')
+    })
+});
+
+//imagess
+app.get('/suggestedListings', (req, res) => {
+  axios.get(`http://localhost:3004/suggestedListings`)
+    .then((data) => {
+      res.send(data.data);
+    })
+    .catch(() => {
+      console.log('error here')
+    })
+});
+
 
 
 app.listen(PORT, () => {
