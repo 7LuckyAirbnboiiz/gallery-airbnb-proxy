@@ -7,10 +7,14 @@ let PORT = 1010;
 
 app.use('/rooms/:id', express.static('public'));
 // app.use(parser.urlencoded({ extended: false }));
+//gallery route
+// let GalleryRouter = require('./routes/gallery.js');
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.urlencoded({ extended: true }));
 
+//galleries requests
+// app.use('/properties', GalleryRouter);
 app.get('/properties/:id', (req, res) => {
   let id = req.params.id;
   axios.get(`http://localhost:3001/properties/${id}`)
@@ -21,6 +25,7 @@ app.get('/properties/:id', (req, res) => {
     .catch(console.log)
 });
 
+//reviews requests
 app.get('/reviews/users', (req, res) => {
   axios.get(`http://localhost:3003/reviews/users`)
     .then((data) => {
@@ -66,6 +71,16 @@ app.get('/rooms/:room_id/reservation', (req, res) => {
     })
 });
 
+app.post('/rooms/:room_id/reservation', (req, res) => {
+  axios.get(`http://localhost:3002/rooms/${id}/reservation`)
+    .then((data) => {
+      res.send(data.data);
+    })
+    .catch(() => {
+      console.log('error here')
+    })
+});
+
 //imagess
 app.get('/suggestedListings', (req, res) => {
   axios.get(`http://localhost:3004/suggestedListings`)
@@ -77,8 +92,6 @@ app.get('/suggestedListings', (req, res) => {
     })
 });
 
-
-
 app.listen(PORT, () => {
-  console.log('Listening to locahost:' + PORT)
+  console.log('Listening to: http://localhost:' + PORT)
 });
