@@ -11,7 +11,7 @@ app.use('/rooms/:id', express.static('public'));
 // let GalleryRouter = require('./routes/gallery.js');
 
 app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //galleries requests
 // app.use('/properties', GalleryRouter);
@@ -72,7 +72,14 @@ app.get('/rooms/:room_id/reservation', (req, res) => {
 });
 
 app.post('/rooms/:room_id/reservation', (req, res) => {
-  axios.get(`http://localhost:3002/rooms/${id}/reservation`)
+  console.log(req.body, 'this the inside proxy')
+
+  let obj = {
+    check_in: req.body.check_in,
+    check_out: req.body.check_out
+  };
+  let id = req.params.room_id;
+  axios.post(`http://localhost:3002/rooms/${id}/reservation`, obj)
     .then((data) => {
       res.send(data.data);
     })
@@ -81,7 +88,7 @@ app.post('/rooms/:room_id/reservation', (req, res) => {
     })
 });
 
-//imagess
+//carousal
 app.get('/suggestedListings', (req, res) => {
   axios.get(`http://localhost:3004/suggestedListings`)
     .then((data) => {
