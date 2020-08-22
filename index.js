@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 // app.use('/properties', GalleryRouter);
 app.get('/properties/:id', (req, res) => {
   let id = req.params.id;
-  axios.get(`http://localhost:3001/properties/${id}`)
+  axios.get(`http://54.183.251.18:1000/properties/${id}`)
     .then((data) => {
       console.log('success')
       res.send(data.data);
@@ -27,7 +27,7 @@ app.get('/properties/:id', (req, res) => {
 
 //reviews requests
 app.get('/reviews/users', (req, res) => {
-  axios.get(`http://localhost:3003/reviews/users`)
+  axios.get(`http://54.219.7.53:3003/reviews/users`)
     .then((data) => {
       res.send(data.data);
     })
@@ -35,7 +35,7 @@ app.get('/reviews/users', (req, res) => {
 });
 
 app.get('/reviews/houses', (req, res) => {
-  axios.get(`http://localhost:3003/reviews/houses`)
+  axios.get(`http://54.219.7.53:3003/reviews/houses`)
     .then((data) => {
       res.send(data.data);
     })
@@ -43,7 +43,7 @@ app.get('/reviews/houses', (req, res) => {
 });
 
 app.get('/reviews/comments', (req, res) => {
-  axios.get(`http://localhost:3003/reviews/comments`)
+  axios.get(`http://54.219.7.53:3003/reviews/comments`)
     .then((data) => {
       res.send(data.data);
     })
@@ -51,7 +51,7 @@ app.get('/reviews/comments', (req, res) => {
 });
 
 app.get('/reviews', (req, res) => {
-  axios.get(`http://localhost:3003/reviews`)
+  axios.get(`http://54.219.7.53:3003/reviews`)
     .then((data) => {
       res.send(data.data);
     })
@@ -61,7 +61,7 @@ app.get('/reviews', (req, res) => {
 //calendar
 app.get('/rooms/:room_id/reservation', (req, res) => {
   let id = req.params.room_id
-  axios.get(`http://localhost:3002/rooms/${id}/reservation`)
+  axios.get(`http://18.222.153.20:8000/rooms/${id}/reservation`)
     .then((data) => {
       console.log('hello')
       res.send(data.data);
@@ -72,7 +72,7 @@ app.get('/rooms/:room_id/reservation', (req, res) => {
 });
 
 app.post('/rooms/:room_id/reservation', (req, res) => {
-  axios.get(`http://localhost:3002/rooms/${id}/reservation`)
+  axios.get(`http://18.222.153.20:8000/rooms/${id}/reservation`)
     .then((data) => {
       res.send(data.data);
     })
@@ -83,7 +83,7 @@ app.post('/rooms/:room_id/reservation', (req, res) => {
 
 //imagess
 app.get('/suggestedListings', (req, res) => {
-  axios.get(`http://localhost:3004/suggestedListings`)
+  axios.get(`http://54.185.100.42:3004/suggestedListings`)
     .then((data) => {
       res.send(data.data);
     })
